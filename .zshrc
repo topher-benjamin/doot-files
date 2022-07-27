@@ -2,17 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/s301141/.oh-my-zsh"
+export ZSH="/Users/christopher.benjamin/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="sunrise"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -32,6 +32,9 @@ ZSH_THEME="sunrise"
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
@@ -42,6 +45,8 @@ ZSH_THEME="sunrise"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -61,17 +66,16 @@ ZSH_THEME="sunrise"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx zsh-syntax-highlighting)
+plugins=(macos)
 
 source $ZSH/oh-my-zsh.sh
-source ~/proxy.sh
 
 # User configuration
-  
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -96,22 +100,35 @@ source ~/proxy.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias chromeRDB="open -a Google\ Chrome --args --remote-debugging-port=9222"export PATH="/usr/local/opt/openssl/bin:$PATH"
-alias fly-login="fly login -c https://concoursedev.aepsc.com -t chargedev -n charge"
-alias fly-dev="fly -t chargedev"
+alias tf="terraform"
+alias eks="eksctl"
+alias k="kubectl"
+alias d="docker"
+alias gp="$HOME/Downloads/Untitled.sh"
+alias fly="fly -t fuse"
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# nvm
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-export PATH="$PATH:$HOME/Documents/development/flutter/bin"
-export PATH="$PATH:$HOME/Documents/development/"
-export DOCKER_OPTS=" --insecure-registry charge-virtual-docker.artapnat01:8081"
 bindkey "^X\x7f" backward-kill-line
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/sbin:$PATH"
+export NODE_EXTRA_CA_CERTS=/Users/christopher.benjamin/.certs/CAH-Root-CA-PR1.pem
+export SSL_CERT_FILE=/Users/christopher.benjamin/.certs/CAH-Root-CA-PR1.pem
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/christopher.benjamin/.sdkman"
+[[ -s "/Users/christopher.benjamin/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/christopher.benjamin/.sdkman/bin/sdkman-init.sh"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -o nospace -C /usr/local/bin/terraform terraform
+
+# Leave this at the end of this file forever
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
